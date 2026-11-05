@@ -320,7 +320,7 @@
   const stageCls = (o) => o.pre === 'await' ? 'gr' : o.pre === 'uploading' ? 'b' : o.pre === 'ready' ? (o.phoneCrop && o.phoneCrop.state === 'wait' ? 'm' : 'g') : (STAGE_CHIP[o.stage] || '');
   const stageIcon = (o) => o.pre === 'await' ? I.clock : o.pre === 'uploading' ? I.cloud : o.pre === 'ready' ? I.cut : (STAGE_ICON[o.stage] || I.box);
   // أسماء المنتجات المختصرة (طلب المالكة ٧): كل منتج في شريحة لحاله
-  const SHORT = [[/مغناط/, 'صور مغناطيسية', 'm'], [/ملصق/, 'ملصقات', 'v'], [/ميدالي/, 'ميني ألبوم', 'u'], [/إطار|اطار|لوحة|جداري/, 'إطارات', 'b'], [/مخمل|أرنب|ارنب|طباعة|ألبوم|البوم|ورق|صور/, 'طباعة ورقية', 'pk']];
+  const SHORT = [[/مغناط/, 'صور مغناطيسية', 'm'], [/ملصق/, 'ملصقات', 'v'], [/ميدالي/, 'ميني ألبوم', 'u'], [/إطار|اطار|لوح|جداري|مقاس|سور |سورة|آية|اية/, 'إطارات', 'b'], [/مخمل|أرنب|ارنب|طباعة|ألبوم|البوم|ورق|صور/, 'طباعة ورقية', 'pk']];
   function shortName(label) { for (const [re, s, c] of SHORT) if (re.test(String(label || ''))) return [s, c]; return [String(label || ''), 'gr']; }
   function prodList(o) { const m = new Map(); for (const p of (o.products || o.lines || [])) { const [s, c] = shortName(p.label); const x = m.get(s) || { s, c, n: 0 }; x.n += Number(p.n) || 0; m.set(s, x); } return [...m.values()]; }
   const prodChips = (o, max = 4) => { const l = prodList(o); return l.length ? `<div class="prods">${l.slice(0, max).map((x) => `<span class="pc ${x.c}">${I.tag}${esc(x.s)}${x.n ? `<em>${fmt(x.n)}</em>` : ''}</span>`).join('')}${l.length > max ? `<span class="pc gr">+${fmt(l.length - max)}</span>` : ''}</div>` : ''; };
